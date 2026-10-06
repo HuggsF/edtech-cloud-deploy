@@ -1,0 +1,7 @@
+environment    = "prod"
+aws_region     = "us-east-1"
+database_name  = "edtech"
+db_username    = "edtech_admin"
+db_password    = "CHANGE_ME_IN_PRODUCTION_SECRETS_VAULT"
+docker_image   = "123456789012.dkr.ecr.us-east-1.amazonaws.com/edtech-cloud-deploy:v1.0.0"
+rabbitmq_url   = "amqps://user:pass@b-xxxx.mq.us-east-1.amazonaws.com:5671"

@@ -1,0 +1,7 @@
+environment    = "dev"
+aws_region     = "us-east-1"
+database_name  = "edtech"
+db_username    = "edtech_admin"
+db_password    = "SuperSecretDevPass123!"
+docker_image   = "123456789012.dkr.ecr.us-east-1.amazonaws.com/edtech-cloud-deploy:dev"
+rabbitmq_url   = "amqp://user:pass@b-xxxx.mq.us-east-1.amazonaws.com:5671"
