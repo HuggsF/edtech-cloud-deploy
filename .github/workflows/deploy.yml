@@ -9,8 +9,30 @@ permissions:
   contents: read
 
 jobs:
+  # Secrets cannot be read in a job-level `if`, so a tiny job exposes whether AWS is configured.
+  # Without the OIDC role (forks, or before `terraform apply`) the deploy is skipped, not failed.
+  preflight:
+    name: Check AWS Configuration
+    runs-on: ubuntu-latest
+    outputs:
+      aws_configured: ${{ steps.check.outputs.aws_configured }}
+    steps:
+      - name: Check deploy role secret
+        id: check
+        env:
+          AWS_DEPLOY_ROLE_ARN: ${{ secrets.AWS_DEPLOY_ROLE_ARN }}
+        run: |
+          if [ -n "$AWS_DEPLOY_ROLE_ARN" ]; then
+            echo "aws_configured=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "aws_configured=false" >> "$GITHUB_OUTPUT"
+            echo "::notice title=Deploy skipped::AWS_DEPLOY_ROLE_ARN is not set; build and deploy jobs are skipped."
+          fi
+
   build-and-push:
     name: Build & Push Docker Image
+    needs: preflight
+    if: needs.preflight.outputs.aws_configured == 'true'
     runs-on: ubuntu-latest
     outputs:
       image_tag: ${{ steps.meta.outputs.tag }}

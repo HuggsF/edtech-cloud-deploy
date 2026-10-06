@@ -320,7 +320,9 @@ terraform init && terraform plan
 ```
 
 `deploy.yml` builds the image, pushes it to ECR and rolls the ECS services out, assuming an IAM
-role through GitHub OIDC (`AWS_DEPLOY_ROLE_ARN` secret) — no long-lived keys.
+role through GitHub OIDC (`AWS_DEPLOY_ROLE_ARN` secret) — no long-lived keys. Until that secret
+is set (this repository is not deployed to AWS), a preflight job skips the build and deploy jobs
+with a notice instead of failing every push.
 
 ## 🧪 Tests
 
