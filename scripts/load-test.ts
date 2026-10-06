@@ -12,7 +12,7 @@ const TEMPLATES: readonly TaskTemplate[] = [
     type: 'email_notification',
     payload: {
       to: 'loadtest@edtech.org',
-      template: 'digest',
+      template: 'grade_published',
       subject: 'Weekly Activity Summary',
     },
   },
@@ -27,7 +27,7 @@ const TEMPLATES: readonly TaskTemplate[] = [
   {
     type: 'data_sync',
     payload: {
-      source: 'canvas_lms',
+      source: 'lms',
       entity: 'students',
       since: '2026-01-01',
       batchSize: 100,

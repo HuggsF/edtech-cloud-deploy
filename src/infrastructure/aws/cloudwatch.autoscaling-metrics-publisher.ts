@@ -21,8 +21,9 @@ export type CloudWatchPublisherConfig = {
  * Publishes `Custom/EdTech QueueDepth{QueueName=…}` with PutMetricData. Credentials come from
  * the default provider chain — on ECS, the task role (no keys in the container).
  *
- * Why the application publishes it: Amazon MQ does not vend per-queue CloudWatch metrics for
- * RabbitMQ 4 brokers (see docs/adr/002-queue-based-autoscaling.md).
+ * Why the application publishes it: the same signal works whether RabbitMQ runs on Amazon MQ or
+ * is self-hosted. The scaling policy divides it by the running task count (backlog per task) —
+ * see docs/adr/002-queue-based-autoscaling.md.
  */
 export class CloudWatchAutoscalingMetricsPublisher implements AutoscalingMetricsPublisher {
   constructor(

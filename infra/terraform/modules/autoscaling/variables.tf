@@ -20,7 +20,7 @@ variable "max_capacity" {
 }
 
 variable "target_messages_per_worker" {
-  description = "Target queue depth per worker task"
+  description = "Target backlog (queued messages) per running worker task"
   type        = number
   default     = 50
 }
@@ -47,4 +47,10 @@ variable "scale_in_cooldown" {
   description = "Cooldown period in seconds before scaling in"
   type        = number
   default     = 300
+}
+
+variable "queue_name" {
+  description = "RabbitMQ queue whose depth the workers publish as the QueueName dimension"
+  type        = string
+  default     = "edtech.tasks"
 }

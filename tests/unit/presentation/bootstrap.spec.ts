@@ -73,8 +73,9 @@ jest.mock('@infrastructure/database/migrator', () => ({
 }));
 
 jest.mock('@presentation/http/server', () => {
-  const { EventEmitter: EE } =
-    jest.requireActual<{ EventEmitter: typeof EventEmitter }>('node:events');
+  const { EventEmitter: EE } = jest.requireActual<{ EventEmitter: typeof EventEmitter }>(
+    'node:events',
+  );
   const server = Object.assign(new EE(), {
     address: () => ({ port: 3000 }),
     close: jest.fn((cb?: (err?: Error) => void) => {

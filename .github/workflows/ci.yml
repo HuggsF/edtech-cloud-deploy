@@ -33,7 +33,7 @@ jobs:
       - name: ESLint Check
         run: npm run lint
 
-      - name: Unit & Integration Tests (Coverage >= 80%)
+      - name: Unit Tests (coverage thresholds enforced)
         run: npm run test:coverage
 
       - name: Production Build
@@ -45,3 +45,30 @@ jobs:
           test -f dist/api.js
           test -f dist/worker.js
           test -f dist/migrate.js
+
+  terraform:
+    name: Terraform fmt & validate
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        environment: [dev, prod]
+    defaults:
+      run:
+        working-directory: infra/terraform/environments/${{ matrix.environment }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.9.8
+
+      - name: Format check
+        run: terraform fmt -check -recursive ../..
+
+      - name: Init (no backend, no credentials)
+        run: terraform init -backend=false -input=false
+
+      - name: Validate
+        run: terraform validate

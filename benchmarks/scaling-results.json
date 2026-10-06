@@ -1,0 +1,49 @@
+{
+  "measuredAt": "2026-10-06T17:23:36.640Z",
+  "environment": "Node v24.19.0 · win32 x64 · 13th Gen Intel(R) Core(TM) i5-13450HX · docker-compose (API + RabbitMQ 3 + MySQL 8 + worker replicas, production images)",
+  "scaling": [
+    {
+      "replicas": 1,
+      "backlog": 2000,
+      "enqueueMs": 4868,
+      "drainMs": 71571,
+      "tasksPerSecond": 27.9,
+      "perWorkerTasksPerSecond": 27.9,
+      "peakQueueDepth": 1866,
+      "failed": 0
+    },
+    {
+      "replicas": 2,
+      "backlog": 2000,
+      "enqueueMs": 5024,
+      "drainMs": 37028,
+      "tasksPerSecond": 54,
+      "perWorkerTasksPerSecond": 27,
+      "peakQueueDepth": 1725,
+      "failed": 0
+    },
+    {
+      "replicas": 4,
+      "backlog": 2000,
+      "enqueueMs": 10796,
+      "drainMs": 22254,
+      "tasksPerSecond": 89.9,
+      "perWorkerTasksPerSecond": 22.5,
+      "peakQueueDepth": 1058,
+      "failed": 0
+    }
+  ],
+  "shutdown": {
+    "replicas": 2,
+    "backlog": 1000,
+    "stoppedContainer": "edtech-cloud-deploy-worker-1",
+    "completedAtSigterm": 338,
+    "inFlightAtStop": 10,
+    "drainedMs": 723,
+    "completed": 1000,
+    "failed": 0,
+    "stuckInProcessing": 0,
+    "redelivered": 30,
+    "lost": 0
+  }
+}
